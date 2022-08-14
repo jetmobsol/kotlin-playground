@@ -1,11 +1,15 @@
 package inc.evil.playground
 
-interface Expression
-class Num(val value: Int) : Expression
-class Sum(val left: Expression, val right: Expression) : Expression
-class Subtract(val left: Expression, val right: Expression) : Expression
-class Division(val left: Expression, val right: Expression) : Expression
-class Multiplication(val left: Expression, val right: Expression) : Expression
+import inc.evil.playground.Expression.*
+
+sealed interface Expression {
+    class Num(val value: Int) : Expression
+    class Sum(val left: Expression, val right: Expression) : Expression
+    class Subtract(val left: Expression, val right: Expression) : Expression
+    class Division(val left: Expression, val right: Expression) : Expression
+    class Multiplication(val left: Expression, val right: Expression) : Expression
+}
+
 
 fun eval(e: Expression): Int =
     when (e) {
@@ -14,7 +18,7 @@ fun eval(e: Expression): Int =
         is Subtract -> eval(e.right) - eval(e.left)
         is Division -> eval(e.right) / eval(e.left)
         is Multiplication -> eval(e.right) * eval(e.left)
-        else -> throw IllegalArgumentException("Unknown expression")
+//        else -> throw IllegalArgumentException("Unknown expression") // no else required
     }
 
 

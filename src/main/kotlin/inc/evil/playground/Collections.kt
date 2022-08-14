@@ -31,10 +31,19 @@ fun String.lastChar(): Char = this[this.length - 1] //extension function - add m
 fun String.ascending(): String = this.toList().sorted().joinToString("") { it.toString() }
 fun String.descending(): String = this.toList().sortedDescending().joinToString("") { it.toString() }
 
+val String.lastChar: Char get() = this[length - 1] //extension property
+
+infix fun String.concatenate(string: String): String = this + string
+
+fun printElements(vararg values: String): Unit {
+    values.forEach { println(it) }
+}
+
 fun main() {
     val set = hashSetOf(1, 7, 53)
     val list = arrayListOf(1, 7, 53)
     val map = hashMapOf(1 to "one", 7 to "seven", 53 to "fifty-three")
+    val map2 = mapOf(1 to "one", 7 to "seven", 53 to "fifty-three")
     val strings = listOf(1, 2, 3, 3)
     var arrayDeque = ArrayDeque<String>()
     arrayDeque.addFirst("element")
@@ -51,6 +60,7 @@ fun main() {
     println(set.javaClass)
     println(list.javaClass)
     println(map.javaClass)
+    println(map2.javaClass)
     println(strings.javaClass)
 
     println(strings.last())
@@ -70,4 +80,39 @@ fun main() {
     println("Kotlin".sorted())
     println("Kotlin".descending())
 
+    printElements(*arrayOf("1", "2", "3")) //spread operator
+
+    val anotherMap = mutableMapOf(1 to "one", 7 to "seven", 53 to "fifty-three") //infix call
+
+    val (number, name) = 1 to "one" //destructuring and infix call
+    println("$number - $name")
+    anotherMap[number] = name
+
+    for ((key, value) in anotherMap) {
+        println(key)
+        println(value)
+    }
+
+    for ((index, element) in linkedList.withIndex()) {
+        println("$index - $element")
+    }
+
+    val person = Person()
+    val (n, age, rc) = person // destructuring
+    println(n)
+    println(age)
+    println(rc)
+
+    var s = "string" concatenate "anotherString" //infix extension function
+    println(s)
+}
+
+private operator fun Person.component1(): String { //to allow destructuring
+    return this.name
+}
+private operator fun Person.component2(): Int { //to allow destructuring
+    return this.age
+}
+private operator fun Person.component3(): String { //to allow destructuring
+    return this.race
 }
