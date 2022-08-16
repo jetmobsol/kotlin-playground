@@ -2,14 +2,12 @@ package inc.evil.playground
 
 import inc.evil.playground.Expression.*
 
-sealed interface Expression {
-    class Num(val value: Int) : Expression
-    class Sum(val left: Expression, val right: Expression) : Expression
-    class Subtract(val left: Expression, val right: Expression) : Expression
-    class Division(val left: Expression, val right: Expression) : Expression
-    class Multiplication(val left: Expression, val right: Expression) : Expression
-}
-
+sealed interface Expression
+class Num(val value: Int) : Expression
+class Sum(val left: Expression, val right: Expression) : Expression
+class Subtract(val left: Expression, val right: Expression) : Expression
+class Division(val left: Expression, val right: Expression) : Expression
+class Multiplication(val left: Expression, val right: Expression) : Expression
 
 fun eval(e: Expression): Int =
     when (e) {

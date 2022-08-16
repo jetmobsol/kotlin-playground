@@ -46,6 +46,10 @@ fun sendEmailTo(email: String) {
     println("Sending email to $email")
 }
 
+fun fail(message: String): Nothing {
+    throw IllegalStateException(message)
+}
+
 
 fun ignoreNulls(s: String?) {
     val sNotNull: String = s!! //not null assertion
