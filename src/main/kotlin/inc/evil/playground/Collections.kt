@@ -105,6 +105,9 @@ fun main() {
 
     var s = "string" concatenate "anotherString" //infix extension function
     println(s)
+
+    set += 222 //set.add(222)
+    println(set)
 }
 
 private operator fun Person.component1(): String { //to allow destructuring

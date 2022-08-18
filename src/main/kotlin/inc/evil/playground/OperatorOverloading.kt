@@ -42,6 +42,16 @@ class Point(var x: Int, var y: Int) : Comparable<Point> {
         }
     }
 
+    operator fun invoke(index: Int): Int {
+        return when (index) {
+            0 -> x
+            1 -> y
+            else -> {
+                throw IndexOutOfBoundsException("Invalid coordinate $index")
+            }
+        }
+    }
+
     operator fun set(index: Int, value: Int): Unit {
         when (index) {
             0 -> x = value
@@ -176,6 +186,9 @@ fun main() {
     var anotherPoint = Point(4, 2) + Point(9, 3)
     println(point)
     var (x, y) = Point(1, 2) // destructuring
+
+    println(point(0))
+    println(point(1))
 
     val person = Person("Mike", 14) + Person("Bob", 15)
     println(person)

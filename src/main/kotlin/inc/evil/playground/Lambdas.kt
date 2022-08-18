@@ -7,6 +7,7 @@ data class Person(val name: String, val age: Int) {
     fun getEmail(): String {
         return "$name-${LocalDate.now().year - age}@mail.com"
     }
+
     fun getUsername(): String {
         return "$name-${LocalDate.now().year - age}"
     }
@@ -58,8 +59,34 @@ fun postponeComputation(delay: Int, computation: Runnable) {
     computation.run()
 }
 
+//lambda with receiver
+fun buildString(builderAction: StringBuilder.() -> Unit): String {
+    val sb = StringBuilder()
+    sb.builderAction()
+    return sb.toString()
+}
+
+//This special type is called the receiver type, and the
+//value of that type passed to the lambda becomes the receiver object.
+fun Customero.configureCustomer(customerAction: Customero.() -> Unit): Customero {
+    this
+    this.customerAction()
+    return this
+}
 
 fun main() {
+    val customer = Customero(26, "name")
+    customer
+        .configureCustomer { setAttribute("data", "some info") }
+        .also { println(it.data) }
+
+
+    println(buildString {
+        append("a")
+        append("b")
+    }.toString())
+
+
     val people = listOf<Person>(Person("Alice", 29), Person("Bob", 31))
     println(people.maxBy(Person::age)) //method reference
     println(people.minBy { it.age }) //lambda
